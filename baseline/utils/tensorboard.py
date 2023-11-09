@@ -1,9 +1,12 @@
 import PIL
+from PIL import Image as Image
 import scipy.misc
 from io import BytesIO
 import tensorboardX as tb
 from tensorboardX.summary import Summary
-
+def numpy_array_to_image(numpy_array):
+    image = Image.fromarray(numpy_array)
+    return image
 class TensorBoard(object):
     def __init__(self, model_dir):
         self.summary_writer = tb.FileWriter(model_dir)
@@ -17,8 +20,9 @@ class TensorBoard(object):
         elif type(img) == PIL.Image.Image:
             pass
         else:
-            img = scipy.misc.toimage(img)
-
+            # img = scipy.misc.toimage(img)
+            img = numpy_array_to_image(img)
+        img = img.convert('L')
         img.save(bio, format="png")
         image_summary = Summary.Image(encoded_image_string=bio.getvalue())
         summary.value.add(tag=tag, image=image_summary)
