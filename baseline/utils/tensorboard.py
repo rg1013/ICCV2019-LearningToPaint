@@ -21,8 +21,8 @@ class TensorBoard(object):
             pass
         else:
             # img = scipy.misc.toimage(img)
-            img = numpy_array_to_image(img)
-        img = img.convert('L')
+            img= Image.fromarray(img, mode='L')
+
         img.save(bio, format="png")
         image_summary = Summary.Image(encoded_image_string=bio.getvalue())
         summary.value.add(tag=tag, image=image_summary)

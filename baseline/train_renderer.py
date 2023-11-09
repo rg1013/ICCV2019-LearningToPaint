@@ -37,7 +37,7 @@ def load_weights():
 
 
 load_weights()
-while step < 500000:
+while step < 500:
     net.train()
     train_batch = []
     ground_truth = []
@@ -67,7 +67,7 @@ while step < 500000:
     for param_group in optimizer.param_groups:
         param_group["lr"] = lr
     writer.add_scalar("train/loss", loss.item(), step)
-    if step % 100 == 0:
+    if step % 10 == 0:
         net.eval()
         gen = net(train_batch)
         loss = criterion(gen, ground_truth)
@@ -77,6 +77,6 @@ while step < 500000:
             GT = ground_truth[i].cpu().data.numpy()
             writer.add_image("train/gen{}.png".format(i), G, step)
             writer.add_image("train/ground_truth{}.png".format(i), GT, step)
-    if step % 1000 == 0:
+    if step % 10 == 0:
         save_model()
     step += 1
