@@ -39,6 +39,8 @@ class Paint:
             img_id = '%06d' % (i + 1)
             try:
                 img = cv2.imread('./data/img_align_celeba/' + img_id + '.jpg', cv2.IMREAD_UNCHANGED)
+                # img = cv2.imread('C:\\Users\\Garima Ranjan\\Desktop\\EE\\RL\\project\\ICCV2019-LearningToPaint\\baseline\\data\\img_align_celeba' + img_id + '.jpg', cv2.IMREAD_UNCHANGED)
+                # "C:\Users\Garima Ranjan\Desktop\EE\RL\project\ICCV2019-LearningToPaint\baseline\data\img_align_celeba\000001.jpg"
                 img = cv2.resize(img, (width, width))
                 if i > 2000:                
                     train_num += 1
